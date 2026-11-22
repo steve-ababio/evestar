@@ -36,12 +36,25 @@ const fieldHints: Record<string, string> = {
   Supplies: "Products needed, quantities and how often",
 };
 
-export function QuoteForm({ defaultService = "" }: { defaultService?: string }) {
+export function QuoteForm({
+  defaultService = "",
+  embedded = false,
+  onServiceChange,
+}: {
+  defaultService?: string;
+  embedded?: boolean;
+  onServiceChange?: (slug: string) => void;
+}) {
   const [service, setService] = useState(defaultService);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [consent, setConsent] = useState(false);
   const selected = services.find((s) => s.slug === service);
+
+  function handleServiceChange(value: string) {
+    setService(value);
+    onServiceChange?.(value);
+  }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -75,11 +88,13 @@ export function QuoteForm({ defaultService = "" }: { defaultService?: string }) 
 
   const err = (k: string) =>
     errors[k] ? <p className="mt-1.5 text-xs text-destructive">{errors[k]}</p> : null;
-  const field = "h-11 rounded-xl bg-card";
+  const field = embedded
+    ? "h-11 rounded-xl border-border/80 bg-muted/40"
+    : "h-11 rounded-xl bg-card";
 
   if (sent) {
     return (
-      <div className="rounded-2xl bg-card p-10 text-center shadow-soft">
+      <div className={embedded ? "py-10 text-center" : "rounded-2xl bg-card p-10 text-center shadow-soft"}>
         <CheckCircle2 className="mx-auto size-10 text-accent" />
         <h3 className="mt-4 text-3xl text-primary">Thank you.</h3>
         <p className="mx-auto mt-3 max-w-md text-muted-foreground">
@@ -97,14 +112,18 @@ export function QuoteForm({ defaultService = "" }: { defaultService?: string }) 
     <form
       onSubmit={onSubmit}
       noValidate
-      className="grid gap-5 rounded-2xl bg-card py-6 px-4  md:grid-cols-2 md:p-10"
+      className={
+        embedded
+          ? "grid gap-4 md:grid-cols-2"
+          : "grid gap-5 rounded-2xl bg-card py-6 px-4 md:grid-cols-2 md:p-10"
+      }
     >
       <div className="md:col-span-2">
         <Label htmlFor="service">Service required *</Label>
         <select
           id="service"
           value={service}
-          onChange={(e) => setService(e.target.value)}
+          onChange={(e) => handleServiceChange(e.target.value)}
           className={`${field} mt-2 w-full border border-input px-3 text-sm`}
         >
           <option value="">Choose a service</option>
@@ -149,8 +168,8 @@ export function QuoteForm({ defaultService = "" }: { defaultService?: string }) 
         <Textarea
           id="details"
           name="details"
-          rows={5}
-          className="mt-2 rounded-xl bg-card"
+          rows={embedded ? 4 : 5}
+          className={embedded ? "mt-2 rounded-xl border-border/80 bg-muted/40" : "mt-2 rounded-xl bg-card"}
           placeholder={
             selected ? fieldHints[selected.category] : "Describe the space, vehicle or event and what you need"
           }
@@ -164,11 +183,29 @@ export function QuoteForm({ defaultService = "" }: { defaultService?: string }) 
         </label>
         {err("consent")}
       </div>
-      <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
-        <p className="text-xs text-muted-foreground">Photos can be shared in the WhatsApp chat after sending.</p>
-        <Button type="submit" variant="premium" size="xl" className="w-full sm:w-auto">
+      <div
+        className={
+          embedded
+            ? "flex flex-col gap-3 md:col-span-2"
+            : "flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between md:col-span-2"
+        }
+      >
+        {!embedded && (
+          <p className="text-xs text-muted-foreground">Photos can be shared in the WhatsApp chat after sending.</p>
+        )}
+        <Button
+          type="submit"
+          variant="premium"
+          size="xl"
+          className={embedded ? "h-12 w-full rounded-xl" : "w-full sm:w-auto"}
+        >
           Send request
         </Button>
+        {embedded && (
+          <p className="text-center text-xs text-muted-foreground">
+            Photos can be shared in the WhatsApp chat after sending.
+          </p>
+        )}
       </div>
     </form>
   );

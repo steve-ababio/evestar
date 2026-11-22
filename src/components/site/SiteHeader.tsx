@@ -130,7 +130,7 @@ export function SiteHeader() {
           initial={reduced ? { opacity: 0 } : { y: -28, opacity: 0, scale: 0.92 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           transition={{ duration: 0.65, ease: EASE_OUT_EXPO }}
-          className={`pointer-events-auto relative flex w-full items-center justify-between gap-2 rounded-full bg-white p-1.5  text-primary backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 lg:w-max lg:justify-center lg:gap-2 xl:gap-2.5 lg:px-7 lg:py-3 ${
+          className={`pointer-events-auto relative flex w-full items-center justify-between gap-2 rounded-full bg-white p-1.5  text-primary backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 lg:w-max lg:justify-center lg:gap-2 xl:gap-2.5 lg:px-5 lg:py-3 ${
             scrolled
               ? "shadow-[inset_0_1px_0_rgba(255,255,255,0.9),10px_18px_44px_-10px_oklch(0.24_0.055_258/0.18)]"
               : "shadow-[inset_0_1px_0_rgba(255,255,255,0.9),10px_12px_36px_-10px_oklch(0.24_0.055_258/0.12)]"
@@ -207,7 +207,7 @@ export function SiteHeader() {
                   href={n.href}
                   onMouseEnter={() => setHoveredHref(n.href)}
                   onFocus={() => setHoveredHref(n.href)}
-                  className={`relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 lg:px-3 xl:px-3.5 py-1.5 text-[13px] tracking-[-0.01em] transition-colors ${
+                  className={`relative inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 lg:px-3 xl:px-3.5 py-1.5 text-[13px] md:text-sm tracking-[-0.01em] transition-colors ${
                     isActive
                       ? "text-accent font-semibold"
                       : isHovered

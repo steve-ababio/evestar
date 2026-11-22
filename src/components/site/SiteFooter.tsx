@@ -23,7 +23,7 @@ const exploreLinks = [
 ] as const;
 
 export function SiteFooter() {
-  const linkClass = "inline-block text-[13px] text-primary/70 transition-colors duration-200 hover:text-primary";
+  const linkClass = "inline-block text-[13px] nd:text-primary/70 transition-colors duration-200 hover:text-primary";
 
   return (
     <footer className="relative z-10 overflow-hidden border-t border-border/70 bg-white pt-8 md:pt-12">
@@ -44,7 +44,7 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
             <StaggerItem>
-              <p className="text-[13.5px] font-medium text-primary">Services</p>
+              <p className="text-[13.5px] md:text-base font-medium text-primary">Services</p>
               <ul className="mt-3 space-y-1.5">
                 {serviceLinks.map((item) => (
                   <li key={item.href}>
@@ -57,7 +57,7 @@ export function SiteFooter() {
             </StaggerItem>
 
             <StaggerItem>
-              <p className="text-[13.5px] font-medium text-primary">Explore</p>
+              <p className="text-[13.5px] md:text-base font-medium text-primary">Explore</p>
               <ul className="mt-3 space-y-1.5">
                 {exploreLinks.map((item) => (
                   <li key={item.href}>
@@ -70,7 +70,7 @@ export function SiteFooter() {
             </StaggerItem>
 
             <StaggerItem>
-              <p className="text-[13.5px] font-medium text-primary">Connect</p>
+              <p className="text-[13.5px] md:text-base font-medium text-primary">Connect</p>
               <ul className="mt-3 space-y-1.5">
                 <li>
                   <a
@@ -106,7 +106,7 @@ export function SiteFooter() {
             </StaggerItem>
 
             <StaggerItem>
-              <p className="text-[13.5px] font-medium text-primary">Support</p>
+              <p className="text-[13.5px] md:text-base font-medium text-primary">Support</p>
               <ul className="mt-3 space-y-1.5">
                 <li>
                   <a href={contact.phoneHref} className={linkClass}>

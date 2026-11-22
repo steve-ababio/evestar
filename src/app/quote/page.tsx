@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageIntro } from "@/components/site/blocks";
-import { QuoteForm } from "@/components/site/QuoteForm";
+import { QuoteSplitLayout } from "@/components/site/QuoteSplitLayout";
 
 export const metadata: Metadata = {
   title: "Request a Quote",
@@ -34,8 +34,8 @@ export default async function QuotePage({
         showGrid
       />
       <section className="section">
-        <div className="container-page max-w-4xl">
-          <QuoteForm defaultService={service} />
+        <div className="container-page max-w-8xl">
+          <QuoteSplitLayout defaultService={service} />
         </div>
       </section>
     </>
